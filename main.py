@@ -28,9 +28,14 @@ score = Score()
 game_over = False
 while not game_over:
     screen.update()
+    for segment in snake.segments[1:]:
+        if snake.head.distance(segment) < 10:
+            score.game_over()
+            game_over = True
     if snake.head.distance(food) < 15:
         food.generate_food()
         score.increment()
+        snake.grow()
     if snake.head.xcor() > 280 or snake.head.ycor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() < -280:
         score.game_over()
         game_over = True
